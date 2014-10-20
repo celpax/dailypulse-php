@@ -1,0 +1,20 @@
+{
+    "name": "celpax/dailypulse",
+
+    "autoload": {
+        "psr-0": {
+            "Celpax\\Dailypulse": "src/",
+            "Celpax\\Dailypulse\\Test": "tests/"
+        }
+    },
+
+    "require": {
+        "php": ">=5.3.3",
+        "guzzle/guzzle":"*"
+    },
+
+    "require-dev": {
+        "monolog/monolog": "~1.0",
+        "phpunit/phpunit": "4.3.*"
+    }
+}
