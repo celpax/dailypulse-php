@@ -1,5 +1,6 @@
 {
     "name": "celpax/dailypulse",
+    "version":"1.0.3",
     "type": "library",
     "description":"Access DailyPulse data from your PHP site",
 
