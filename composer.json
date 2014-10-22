@@ -1,16 +1,23 @@
 {
     "name": "celpax/dailypulse",
+    "type": "library",
+    "description":"Access DailyPulse data from your PHP site",
 
     "autoload": {
-        "psr-0": {
-            "Celpax\\Dailypulse": "src/",
-            "Celpax\\Dailypulse\\Test": "tests/"
+        "psr-4": {
+            "Celpax\\Dailypulse\\": "src/"
+        }
+    },
+
+    "autoload-dev": {
+        "psr-4": {
+            "Celpax\\Dailypulse\\Test\\": "tests/"
         }
     },
 
     "require": {
         "php": ">=5.3.3",
-        "guzzle/guzzle":"*"
+        "guzzlehttp/guzzle": "~5.0"
     },
 
     "require-dev": {
