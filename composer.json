@@ -1,7 +1,7 @@
 {
     "name": "celpax/dailypulse",
     "type": "library",
-    "description":"Access DailyPulse data from your PHP site",
+    "description":"Celpax DailyPulse PHP API Client",
 
     "autoload": {
         "psr-4": {
