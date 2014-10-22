@@ -8,7 +8,7 @@ It matches pretty much the [NodeJS API](https://github.com/celpax/dailypulse) Cl
 
 - The client connects to the server using JSON/REST web services. 
 - All requests run over HTTPS and the URI is signed with a timestamped cryptographic token implemented using HMAC-SHA512.
-- The client uses internally [Guzzle](guzzle.readthedocs.org) to send the REST requests and parse the received JSON.
+- The client uses internally [Guzzle](http://guzzle.readthedocs.org) to send the REST requests and parse the received JSON.
 - A Response object encapsulates the downloaded JSON, HTTP Status and exception information from either client or server side.
 
 ##Instalation
