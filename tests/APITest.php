@@ -11,7 +11,7 @@ namespace Celpax\Dailypulse\Test;
 use Celpax\Dailypulse\Client;
 
 
-class CustomerAPITest extends \PHPUnit_Framework_TestCase {
+class APITest extends \PHPUnit_Framework_TestCase {
 
     const access_key_id="your-access-key-here";
     const secret_access_key="your-secret-access-key-here";
