@@ -81,7 +81,7 @@ Note that in some cases the Mood KPI cannot be calculated (for example during ro
 
 Dailypulse will track how many pulses are registered in a typical day. DailyPulse will detect and exclude from this statist days such as weekends in which a couple of people turn up to work, or company parties when there might be an unusual number of pulses.
 
-Again, pulses per typical day might not be callculated for a given site yet, in which case null can be returned.
+Again, pulses per typical day might not be calculated for a given site yet, in which case null can be returned.
 
 You can get it in a similar way by doing:
 
@@ -91,6 +91,12 @@ You can get it in a similar way by doing:
 });
 ```
 A date member will also be returned indicating when the pulses per typical day was last updated.
+
+## User Interface Design
+
+We have released user interface elements, such as: colours, fonts, widgets available in the github project: [DailyPulse-Resources](https://github.com/celpax/dailypulse-resources)
+
+The resources provided match the User Interface of the DailyPulse Dashboard.
 
 ## Testing
 
