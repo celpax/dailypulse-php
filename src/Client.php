@@ -19,13 +19,14 @@ class Client {
     private $client;
     private $urlSign;
 
-    public function __construct($key,$secret){
+    public function __construct($key,$secret,$verifyssl=true){
         $this->access_key_id=$key;
         $this->secret_access_key=$secret;
         $this->urlSign= new URLSign();
         $this->client = new \GuzzleHttp\Client([
             'base_url'=>self::API_ENDPOINT,
             'defaults'=>[
+	    	'verify'=> $verifyssl,
                 'headers'=>[
                     'X-Celpax-Access-Key-Id' => $this->access_key_id,
                     'X-Celpax-Api-Client' => "PHP ".self::VERSION,
