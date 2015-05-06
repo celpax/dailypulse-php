@@ -8,7 +8,7 @@ use GuzzleHttp\Exception\RequestException;
 class Client {
 
     const API_ENDPOINT="https://api.celpax.com:4443";
-    const VERSION="1.0.7";
+    const VERSION="1.0.10";
     const ACCEPTS_VERSION="~1.0";
 
     const SIGNATURE_HEADER="X-Celpax-Signature";
