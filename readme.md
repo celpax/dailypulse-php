@@ -77,6 +77,19 @@ You can retrieve the latest calculated Mood KPI for a give site as follows:
 
 Note that in some cases the Mood KPI cannot be calculated (for example during rollout) and will be returned as null. A date member will also be included indicating when the Mood KPI was last updated.
 
+
+## Historical Mood KPI
+
+You can retrieve the historical calculated Mood KPI for a given site and the number of days to fetch since today as follows:
+
+```php
+   $response=$dailyPulseClient->getHistoricalMoodKPI($site_id, $number_of_days);
+   $green=$response->json()[0]['green'];
+```
+
+The maximum number of allowed days to be fetched can be configured in the Celpax Dashboard console. You need administrator privileges for accessing to the configuration section. 
+
+
 ## Pulses in a Typical Day
 
 Dailypulse will track how many pulses are registered in a typical day. DailyPulse will detect and exclude from this statist days such as weekends in which a couple of people turn up to work, or company parties when there might be an unusual number of pulses.
@@ -91,6 +104,18 @@ You can get it in a similar way by doing:
 });
 ```
 A date member will also be returned indicating when the pulses per typical day was last updated.
+
+## Historical Pulses in a Typical Day
+
+You can retrieve the historical Pulses in a Typical day for a given site and the number of days to fetch since today as follows:
+
+```php
+    $response=$dailyPulseClient->getHistoricalPulsesPerTypicalDay($site_id, $number_of_days);
+    $pulses=$response->json()[0]['pulses'];
+```
+
+The maximum number of allowed days to be fetched can be configured in the Celpax Dashboard console. You need administrator privileges for accessing to the configuration section. 
+
 
 ## User Interface Design
 

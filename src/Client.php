@@ -77,5 +77,13 @@ class Client {
         return $this->get('/latest/pulsesperday/' . $site_id);
     }
 
+    public function getHistoricalMoodKPI($site_id, $number_of_days){
+        return $this->get('/historical/mood/' . $site_id . '/' . $number_of_days);
+    }
+
+    public function getHistoricalPulsesPerTypicalDay($site_id, $number_of_days){
+        return $this->get('/historical/pulsesperday/' . $site_id . '/' . $number_of_days);
+    }
+
 
 } 

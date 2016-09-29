@@ -13,13 +13,18 @@ use Celpax\Dailypulse\Client;
 
 class APITest extends \PHPUnit_Framework_TestCase {
 
+
     const access_key_id="your-access-key-here";
     const secret_access_key="your-secret-access-key-here";
 
+
     private $dailyPulseClient;
+
+    private $number_of_days;
 
     public function __construct(){
         $this->dailyPulseClient=new Client(self::access_key_id,self::secret_access_key);
+        $this->number_of_days = 28;
     }
 
     public function testEchoService(){
@@ -75,6 +80,49 @@ class APITest extends \PHPUnit_Framework_TestCase {
 
         $pulses=$obj['pulses'];
         $dateStr=$obj['date'];
+
+        // here is how to parse the date
+        $date=\DateTime::createFromFormat("Y-m-d",$dateStr);
+
+        $this->assertGreaterThan(0,$pulses);
+    }
+
+    /**
+     * @depends testCompanySites
+     */
+    public function testHistoricalSiteMoodKPI($site_id){
+        $response=$this->dailyPulseClient->getHistoricalMoodKPI($site_id, $this-> number_of_days);
+        $this->assertFalse($response->isException());
+        $this->assertEquals(200, $response->statusCode());
+        $obj=$response->json();
+
+        // NOTE: the site might not have a mood KPI yet. in that
+        // Case red/green are NOT retunned.
+        $red=$obj[0]['red'];
+        $green=$obj[0]['green'];
+        $dateStr=$obj[0]['date'];
+
+        // here is how to parse the date
+        $date=\DateTime::createFromFormat("Y-m-d",$dateStr);
+
+        $this->assertEquals(100-$red,$green);
+    }
+
+
+    /**
+     * @depends testCompanySites
+     */
+    public function testHistoricalPulsesPerTypicalDay($site_id){
+        $response=$this->dailyPulseClient->getHistoricalPulsesPerTypicalDay($site_id, $this-> number_of_days);
+        $this->assertFalse($response->isException());
+        $this->assertEquals(200, $response->statusCode());
+        $obj=$response->json();
+
+        // NOTE: The site might not yet have a pulses per typical day KPI.
+        // in that case it is NOT returned.
+
+        $pulses=$obj[0]['pulses'];
+        $dateStr=$obj[0]['date'];
 
         // here is how to parse the date
         $date=\DateTime::createFromFormat("Y-m-d",$dateStr);
