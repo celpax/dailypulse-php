@@ -8,7 +8,7 @@ use GuzzleHttp\Exception\RequestException;
 class Client {
 
     const API_ENDPOINT="https://api.celpax.com";
-    const VERSION="1.0.11";
+    const VERSION="1.0.12";
     const ACCEPTS_VERSION="~1.0";
 
     const SIGNATURE_HEADER="X-Celpax-Signature";
@@ -73,16 +73,34 @@ class Client {
         return $this->get('/latest/mood/' . $site_id);
     }
 
+    public function getGlobalMoodKPI(){
+        return $this->get('/latest/mood');
+    }
+
     public function getPulsesPerTypicalDay($site_id){
         return $this->get('/latest/pulsesperday/' . $site_id);
     }
 
+    public function getGlobalPulsesPerTypicalDay(){
+        return $this->get('/latest/pulsesperday');
+    }
+
     public function getHistoricalMoodKPI($site_id, $number_of_days){
-        return $this->get('/historical/mood/' . $site_id . '/' . $number_of_days);
+        return $this->get('/historical/mood/' . $number_of_days . '/' . $site_id);
+
+    }
+
+    public function getHistoricalGlobalMoodKPI($number_of_days){
+        return $this->get('/historical/mood/' . $number_of_days );
+
     }
 
     public function getHistoricalPulsesPerTypicalDay($site_id, $number_of_days){
-        return $this->get('/historical/pulsesperday/' . $site_id . '/' . $number_of_days);
+        return $this->get('/historical/pulsesperday/' . $number_of_days . '/' . $site_id);
+    }
+
+    public function getHistoricalGlobalPulsesPerTypicalDay($number_of_days){
+        return $this->get('/historical/pulsesperday/' . $number_of_days );
     }
 
 

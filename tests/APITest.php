@@ -32,6 +32,7 @@ class APITest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($response->isException());
         $this->assertEquals(200, $response->statusCode());
         $obj=$response->json();
+        echo 'testEchoService ' . json_encode($obj, JSON_PRETTY_PRINT)  .  PHP_EOL;
         $this->assertEquals('hello', $obj['msg']);
     }
 
@@ -40,6 +41,7 @@ class APITest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($response->isException());
         $this->assertEquals(200, $response->statusCode());
         $obj=$response->json();
+        echo 'testCompanySites ' . json_encode($obj, JSON_PRETTY_PRINT) .  PHP_EOL;
         $this->assertGreaterThan(0,count($obj));
         $site_id=$obj[0]['id'];
         return $site_id;
@@ -53,8 +55,29 @@ class APITest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($response->isException());
         $this->assertEquals(200, $response->statusCode());
         $obj=$response->json();
-
+        echo 'testSiteMoodKPI ' . json_encode($obj, JSON_PRETTY_PRINT)  .  PHP_EOL;
         // NOTE: the site might not have a mood KPI yet. in that
+        // Case red/green are NOT retunned.
+        $red=$obj['red'];
+        $green=$obj['green'];
+        $dateStr=$obj['date'];
+
+        // here is how to parse the date
+        $date=\DateTime::createFromFormat("Y-m-d",$dateStr);
+
+        $this->assertEquals(100-$red,$green);
+    }
+
+    /**
+     *
+     */
+    public function testGlobalMoodKPI(){
+        $response=$this->dailyPulseClient->getGlobalMoodKPI();
+        $this->assertFalse($response->isException());
+        $this->assertEquals(200, $response->statusCode());
+        $obj=$response->json();
+        echo 'testGlobalMoodKPI ' . json_encode($obj, JSON_PRETTY_PRINT)  .  PHP_EOL;
+        // NOTE: the global company might not have a mood KPI yet. in that
         // Case red/green are NOT retunned.
         $red=$obj['red'];
         $green=$obj['green'];
@@ -74,8 +97,31 @@ class APITest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($response->isException());
         $this->assertEquals(200, $response->statusCode());
         $obj=$response->json();
+        echo 'testPulsesPerTypicalDay ' . json_encode($obj, JSON_PRETTY_PRINT)  .  PHP_EOL;
 
         // NOTE: The site might not yet have a pulses per typical day KPI.
+        // in that case it is NOT returned.
+
+        $pulses=$obj['pulses'];
+        $dateStr=$obj['date'];
+
+        // here is how to parse the date
+        $date=\DateTime::createFromFormat("Y-m-d",$dateStr);
+
+        $this->assertGreaterThan(0,$pulses);
+    }
+
+    /**
+     *
+     */
+    public function testGlobalPulsesPerTypicalDay(){
+        $response=$this->dailyPulseClient->getGlobalPulsesPerTypicalDay();
+        $this->assertFalse($response->isException());
+        $this->assertEquals(200, $response->statusCode());
+        $obj=$response->json();
+        echo 'testGlobalPulsesPerTypicalDay ' . json_encode($obj, JSON_PRETTY_PRINT)  .  PHP_EOL;
+
+        // NOTE: The global company might not yet have a pulses per typical day KPI.
         // in that case it is NOT returned.
 
         $pulses=$obj['pulses'];
@@ -95,6 +141,29 @@ class APITest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($response->isException());
         $this->assertEquals(200, $response->statusCode());
         $obj=$response->json();
+        echo 'testHistoricalSiteMoodKPI ' . json_encode($obj, JSON_PRETTY_PRINT)  .  PHP_EOL;
+
+        // NOTE: the site might not have a mood KPI yet. in that
+        // Case red/green are NOT retunned.
+        $red=$obj[0]['red'];
+        $green=$obj[0]['green'];
+        $dateStr=$obj[0]['date'];
+
+        // here is how to parse the date
+        $date=\DateTime::createFromFormat("Y-m-d",$dateStr);
+
+        $this->assertEquals(100-$red,$green);
+    }
+
+    /**
+     *
+     */
+    public function testHistoricalGlobalMoodKPI(){
+        $response=$this->dailyPulseClient->getHistoricalGlobalMoodKPI($this-> number_of_days);
+        $this->assertFalse($response->isException());
+        $this->assertEquals(200, $response->statusCode());
+        $obj=$response->json();
+        echo 'testHistoricalGlobalMoodKPI ' . json_encode($obj, JSON_PRETTY_PRINT)  .  PHP_EOL;
 
         // NOTE: the site might not have a mood KPI yet. in that
         // Case red/green are NOT retunned.
@@ -117,6 +186,29 @@ class APITest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse($response->isException());
         $this->assertEquals(200, $response->statusCode());
         $obj=$response->json();
+        echo 'testHistoricalPulsesPerTypicalDay ' . json_encode($obj, JSON_PRETTY_PRINT)  .  PHP_EOL;
+
+        // NOTE: The site might not yet have a pulses per typical day KPI.
+        // in that case it is NOT returned.
+
+        $pulses=$obj[0]['pulses'];
+        $dateStr=$obj[0]['date'];
+
+        // here is how to parse the date
+        $date=\DateTime::createFromFormat("Y-m-d",$dateStr);
+
+        $this->assertGreaterThan(0,$pulses);
+    }
+
+    /**
+     *
+     */
+    public function testHistoricalGlobalPulsesPerTypicalDay(){
+        $response=$this->dailyPulseClient->getHistoricalGlobalPulsesPerTypicalDay($this-> number_of_days);
+        $this->assertFalse($response->isException());
+        $this->assertEquals(200, $response->statusCode());
+        $obj=$response->json();
+        echo 'testHistoricalGlobalPulsesPerTypicalDay ' . json_encode($obj, JSON_PRETTY_PRINT)  .  PHP_EOL;
 
         // NOTE: The site might not yet have a pulses per typical day KPI.
         // in that case it is NOT returned.
