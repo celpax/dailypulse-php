@@ -4,14 +4,14 @@ This is the Celpax's PHP DailyPulse Client API. Note that:
 
 It matches pretty much the [NodeJS API](https://github.com/celpax/dailypulse) Client.
 
-##API Client Architecture
+##  API Client Architecture
 
 - The client connects to the server using JSON/REST web services. 
 - All requests run over HTTPS and the URI is signed with a timestamped cryptographic token implemented using HMAC-SHA512.
 - The client uses internally [Guzzle](http://guzzle.readthedocs.org) to send the REST requests and parse the received JSON.
 - A Response object encapsulates the downloaded JSON, HTTP Status and exception information from either client or server side.
 
-##Instalation
+## Installation
 
 The PHP DailyPulse client is distributed as a [composer package](https://packagist.org/packages/celpax/dailypulse).
 
@@ -77,7 +77,12 @@ You can retrieve the latest calculated Mood KPI for a give site as follows:
 
 Note that in some cases the Mood KPI cannot be calculated (for example during rollout) and will be returned as null. A date member will also be included indicating when the Mood KPI was last updated.
 
+Alternatively, you can retrieve the latest calculated global Mood KPI of all the sites of the account as follows:
 
+```php
+    $response=$dailyPulseClient->getGlobalMoodKPI();
+    $green=$response->json()['green'];
+```
 ## Historical Mood KPI
 
 You can retrieve the historical calculated Mood KPI for a given site and the number of days to fetch since today as follows:
@@ -89,6 +94,12 @@ You can retrieve the historical calculated Mood KPI for a given site and the num
 
 The maximum number of allowed days to be fetched can be configured in the Celpax Dashboard console. You need administrator privileges for accessing to the configuration section. 
 
+Alternatively you can retrieve the historical calculated global mood KPI of all the sites of the account as follows:
+
+```php
+   $response=$dailyPulseClient->getHistoricalGlobalMoodKPI($number_of_days);
+   $green=$response->json()[0]['green'];
+```
 
 ## Pulses in a Typical Day
 
@@ -105,6 +116,14 @@ You can get it in a similar way by doing:
 ```
 A date member will also be returned indicating when the pulses per typical day was last updated.
 
+Alternatively, you can retrieve the global pulses in a typical day of all the sites of the account as follows:
+ 
+```php
+    $response=$dailyPulseClient->getGlobalPulsesPerTypicalDay();
+    $pulses=$response->json()['pulses'];
+});
+```
+
 ## Historical Pulses in a Typical Day
 
 You can retrieve the historical Pulses in a Typical day for a given site and the number of days to fetch since today as follows:
@@ -116,6 +135,11 @@ You can retrieve the historical Pulses in a Typical day for a given site and the
 
 The maximum number of allowed days to be fetched can be configured in the Celpax Dashboard console. You need administrator privileges for accessing to the configuration section. 
 
+Alternatively, you can retrieve the historical global pulses per typical day of all the sites of the account as follows:
+```php
+    $response=$dailyPulseClient->getHistoricalGlobalPulsesPerTypicalDay($number_of_days);
+    $pulses=$response->json()[0]['pulses'];
+```
 
 ## User Interface Design
 
