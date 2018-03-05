@@ -9,13 +9,13 @@ DEFINE('SECRET_ACCESS_KEY','your-secret-access-key-here');
 
 $dailyPulseClient=new Client(ACCESS_KEY_ID,SECRET_ACCESS_KEY);
 
-// Retrieve the first site 
+// Retrieve the first site
 $response=$dailyPulseClient->getSites();
-$site_id=$response->json()[0]['id'];
+$site_id=$response->json()[0]->id;
 
 // Get the mood KPI
 $response=$dailyPulseClient->getMoodKPI($site_id);
-$green=$response->json()['green'];
+$green=$response->json()->green;
 
 ?>
 

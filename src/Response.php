@@ -3,7 +3,7 @@
 
 namespace Celpax\Dailypulse;
 
-use GuzzleHttp\Message;
+use GuzzleHttp\Psr7\Response as Psr7Response;
 use GuzzleHttp\Exception\TransferException;
 
 class Response {
@@ -11,7 +11,7 @@ class Response {
     private $exception;
     private $response;
 
-    public function __construct(Message\Response $r=NULL, TransferException $e=NULL){
+    public function __construct(Psr7Response $r=NULL, TransferException $e=NULL){
         if(isset($e)){
             $this->exception=$e;
             $this->response=$e->getResponse();
@@ -33,7 +33,7 @@ class Response {
         $msg="Unknown";
         if(isset($this->exception)){
             if($this->hasResponse()){
-                $msg=$this->json()['message'];
+                $msg=$this->json()->message;
             }
             else $msg=$this->exception->getMessage();
         }
@@ -47,8 +47,8 @@ class Response {
 
     public function json(){
         if($this->hasResponse())
-            return $this->response->json();
+            return json_decode($this->response->getBody());
         else return NULL;
     }
 
-} 
+}
