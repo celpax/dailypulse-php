@@ -24,15 +24,9 @@ class Client {
         $this->secret_access_key=$secret;
         $this->urlSign= new URLSign();
         $this->client = new \GuzzleHttp\Client([
-            'base_url'=>self::API_ENDPOINT,
+            'base_uri'=>self::API_ENDPOINT,
             'defaults'=>[
-	    	'verify'=> $verifyssl,
-                'headers'=>[
-                    'X-Celpax-Access-Key-Id' => $this->access_key_id,
-                    'X-Celpax-Api-Client' => "PHP ".self::VERSION,
-                    'accept-version'=>self::ACCEPTS_VERSION,
-                    'accept'=>'application/json'
-                ]
+                'verify' => $verifyssl,
             ]
         ]);
     }
@@ -41,7 +35,11 @@ class Client {
     private function signature($path){
         return [
             'headers'=>[
-                self::SIGNATURE_HEADER=>$this->urlSign->sign($path, $this->secret_access_key)
+                self::SIGNATURE_HEADER => $this->urlSign->sign($path, $this->secret_access_key),
+                'X-Celpax-Access-Key-Id' => $this->access_key_id,
+                'X-Celpax-Api-Client' => 'PHP ' . self::VERSION,
+                'accept-version' => self::ACCEPTS_VERSION,
+                'accept' => 'application/json',
             ],
             'allow_redirects' => false,
             'timeout'         => self::REQUEST_TIMEOUT

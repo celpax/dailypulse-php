@@ -33,7 +33,7 @@ class APITest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(200, $response->statusCode());
         $obj=$response->json();
         echo 'testEchoService ' . json_encode($obj, JSON_PRETTY_PRINT)  .  PHP_EOL;
-        $this->assertEquals('hello', $obj['msg']);
+        $this->assertEquals('hello', $obj->msg);
     }
 
     public function testCompanySites(){
@@ -43,7 +43,7 @@ class APITest extends \PHPUnit_Framework_TestCase {
         $obj=$response->json();
         echo 'testCompanySites ' . json_encode($obj, JSON_PRETTY_PRINT) .  PHP_EOL;
         $this->assertGreaterThan(0,count($obj));
-        $site_id=$obj[0]['id'];
+        $site_id=$obj[0]->id;
         return $site_id;
     }
 
@@ -58,9 +58,9 @@ class APITest extends \PHPUnit_Framework_TestCase {
         echo 'testSiteMoodKPI ' . json_encode($obj, JSON_PRETTY_PRINT)  .  PHP_EOL;
         // NOTE: the site might not have a mood KPI yet. in that
         // Case red/green are NOT retunned.
-        $red=$obj['red'];
-        $green=$obj['green'];
-        $dateStr=$obj['date'];
+        $red=$obj->red;
+        $green=$obj->green;
+        $dateStr=$obj->date;
 
         // here is how to parse the date
         $date=\DateTime::createFromFormat("Y-m-d",$dateStr);
@@ -79,9 +79,9 @@ class APITest extends \PHPUnit_Framework_TestCase {
         echo 'testGlobalMoodKPI ' . json_encode($obj, JSON_PRETTY_PRINT)  .  PHP_EOL;
         // NOTE: the global company might not have a mood KPI yet. in that
         // Case red/green are NOT retunned.
-        $red=$obj['red'];
-        $green=$obj['green'];
-        $dateStr=$obj['date'];
+        $red=$obj->red;
+        $green=$obj->green;
+        $dateStr=$obj->date;
 
         // here is how to parse the date
         $date=\DateTime::createFromFormat("Y-m-d",$dateStr);
@@ -102,8 +102,8 @@ class APITest extends \PHPUnit_Framework_TestCase {
         // NOTE: The site might not yet have a pulses per typical day KPI.
         // in that case it is NOT returned.
 
-        $pulses=$obj['pulses'];
-        $dateStr=$obj['date'];
+        $pulses=$obj->pulses;
+        $dateStr=$obj->date;
 
         // here is how to parse the date
         $date=\DateTime::createFromFormat("Y-m-d",$dateStr);
@@ -124,8 +124,8 @@ class APITest extends \PHPUnit_Framework_TestCase {
         // NOTE: The global company might not yet have a pulses per typical day KPI.
         // in that case it is NOT returned.
 
-        $pulses=$obj['pulses'];
-        $dateStr=$obj['date'];
+        $pulses=$obj->pulses;
+        $dateStr=$obj->date;
 
         // here is how to parse the date
         $date=\DateTime::createFromFormat("Y-m-d",$dateStr);
@@ -145,9 +145,9 @@ class APITest extends \PHPUnit_Framework_TestCase {
 
         // NOTE: the site might not have a mood KPI yet. in that
         // Case red/green are NOT retunned.
-        $red=$obj[0]['red'];
-        $green=$obj[0]['green'];
-        $dateStr=$obj[0]['date'];
+        $red=$obj[0]->red;
+        $green=$obj[0]->green;
+        $dateStr=$obj[0]->date;
 
         // here is how to parse the date
         $date=\DateTime::createFromFormat("Y-m-d",$dateStr);
@@ -167,9 +167,9 @@ class APITest extends \PHPUnit_Framework_TestCase {
 
         // NOTE: the site might not have a mood KPI yet. in that
         // Case red/green are NOT retunned.
-        $red=$obj[0]['red'];
-        $green=$obj[0]['green'];
-        $dateStr=$obj[0]['date'];
+        $red=$obj[0]->red;
+        $green=$obj[0]->green;
+        $dateStr=$obj[0]->date;
 
         // here is how to parse the date
         $date=\DateTime::createFromFormat("Y-m-d",$dateStr);
@@ -191,8 +191,8 @@ class APITest extends \PHPUnit_Framework_TestCase {
         // NOTE: The site might not yet have a pulses per typical day KPI.
         // in that case it is NOT returned.
 
-        $pulses=$obj[0]['pulses'];
-        $dateStr=$obj[0]['date'];
+        $pulses=$obj[0]->pulses;
+        $dateStr=$obj[0]->date;
 
         // here is how to parse the date
         $date=\DateTime::createFromFormat("Y-m-d",$dateStr);
@@ -213,8 +213,8 @@ class APITest extends \PHPUnit_Framework_TestCase {
         // NOTE: The site might not yet have a pulses per typical day KPI.
         // in that case it is NOT returned.
 
-        $pulses=$obj[0]['pulses'];
-        $dateStr=$obj[0]['date'];
+        $pulses=$obj[0]->pulses;
+        $dateStr=$obj[0]->date;
 
         // here is how to parse the date
         $date=\DateTime::createFromFormat("Y-m-d",$dateStr);
@@ -222,4 +222,4 @@ class APITest extends \PHPUnit_Framework_TestCase {
         $this->assertGreaterThan(0,$pulses);
     }
 
-} 
+}
